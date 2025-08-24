@@ -1,0 +1,52 @@
+/* Custom CSS for the loader and font */
+body { 
+    font-family: 'Inter', sans-serif;
+}
+.loader {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #6366f1; /* Tailwind indigo-500 */
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+    margin-right: 10px;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+/* Tailwind CSS classes are used directly in index.html for most styling */
+/* These are included here for completeness if you were to move them */
+
+/* Example status message styles (already in index.html as classes) */
+.status-message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+.success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+.info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border-color: #bee5eb;
+}
+.hidden {
+    display: none;
+}
+#advice-output {
+    white-space: pre-wrap; /* Preserves whitespace and line breaks */
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+}

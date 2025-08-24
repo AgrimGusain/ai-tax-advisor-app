@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tax Advisor</title>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <!-- Link to external CSS files -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts for 'Inter' -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<<<<<<< HEAD
+<body>
+    <div id="app-container">
+        <h1>AI Tax Advisor 💰</h1>
+        
+        <div id="auth-section" class="section">
+            <h2>Sign Up / Log In</h2>
+            <input type="email" id="email" placeholder="Email">
+            <input type="password" id="password" placeholder="Password">
+            <button id="signup-btn">Sign Up</button>
+            <button id="login-btn">Log In</button>
+            <div id="auth-status" class="status-message"></div>
+            
+            <div id="confirm-section" class="hidden">
+                <p class="info status-message">Check your email for a confirmation code.</p>
+                <input type="text" id="confirm-code" placeholder="Confirmation Code">
+                <button id="confirm-btn">Confirm Account</button>
+            </div>
+        </div>
+        
+        <div id="advisor-section" class="hidden section">
+            <h2>Welcome to Your Personal Tax Assistant!</h2>
+            <p>Upload your income documents (e.g., salary slips, investment proofs) to get tax calculations and personalized saving suggestions.</p>
+            <button id="logout-btn">Log Out</button>
+=======
+<body class="bg-gray-100">
+    <div id="app-container" class="max-w-3xl mx-auto my-8 md:my-12 bg-white rounded-2xl shadow-2xl p-6 md:p-10">
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-800 text-center mb-8">AI Tax Advisor 💰</h1>
+
+        <!-- Authentication Section -->
+        <div id="auth-section" class="section space-y-4">
+            <h2 class="text-2xl font-semibold text-gray-700 border-b-2 border-indigo-500 pb-3 mb-6">Sign Up / Log In</h2>
+            <input type="email" id="email" placeholder="Email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-300">
+            <input type="password" id="password" placeholder="Password" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-300">
+            <div class="flex flex-wrap gap-2">
+                <button id="signup-btn" class="flex-grow bg-indigo-600 text-white px-6 py-3 border-none rounded-lg cursor-pointer text-base font-semibold transition-all duration-300 hover:bg-indigo-700 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">Sign Up</button>
+                <button id="login-btn" class="flex-grow bg-gray-700 text-white px-6 py-3 border-none rounded-lg cursor-pointer text-base font-semibold transition-all duration-300 hover:bg-gray-800 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">Log In</button>
+            </div>
+            <div id="auth-status" class="p-4 my-3 rounded-lg text-sm hidden"></div>
+
+            <div id="confirm-section" class="hidden space-y-2">
+                <p class="p-4 my-3 rounded-lg text-sm bg-blue-100 text-blue-800 border-l-4 border-blue-500">Check your email for a confirmation code.</p>
+                <input type="text" id="confirm-code" placeholder="Confirmation Code" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-300">
+                <button id="confirm-btn" class="w-full bg-green-600 text-white px-6 py-3 border-none rounded-lg cursor-pointer text-base font-semibold transition-all duration-300 hover:bg-green-700 shadow-md hover:shadow-lg">Confirm Account</button>
+            </div>
+        </div>
+>>>>>>> 4562dbd (Completed Phase 2: Implemented Amplify v5 build process)
+
+        <!-- Advisor Section -->
+        <div id="advisor-section" class="hidden section space-y-6">
+            <div class="flex justify-between items-center">
+                 <h2 class="text-2xl font-semibold text-gray-700">Your Personal Tax Assistant</h2>
+                 <button id="logout-btn" class="bg-red-600 text-white px-5 py-2.5 border-none rounded-lg cursor-pointer text-sm font-semibold transition-all duration-300 hover:bg-red-700 shadow-md hover:shadow-lg">Log Out</button>
+            </div>
+            <p class="text-gray-600">Upload your income documents to get tax calculations and personalized saving suggestions.</p>
+
+            <hr class="my-6 border-t border-gray-200">
+
+            <div>
+                <h3 class="text-xl font-semibold text-gray-600 mb-4">Upload Your Tax Document 📁</h3>
+                <input type="file" id="file-input" accept=".pdf,.png,.jpg,.jpeg" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                <button id="upload-btn" class="mt-4 w-full md:w-auto bg-indigo-600 text-white px-6 py-3 border-none rounded-lg cursor-pointer text-base font-semibold transition-all duration-300 hover:bg-indigo-700 shadow-md hover:shadow-lg">Upload Document</button>
+                <div id="upload-status" class="p-4 my-3 rounded-lg text-sm hidden"></div>
+            </div>
+
+            <hr class="my-6 border-t border-gray-200">
+
+            <div>
+                <h3 class="text-xl font-semibold text-gray-600 mb-4">Get Your Tax Advice 💡</h3>
+                <button id="get-advice-btn" class="w-full md:w-auto bg-green-600 text-white px-6 py-3 border-none rounded-lg cursor-pointer text-base font-semibold transition-all duration-300 hover:bg-green-700 shadow-md hover:shadow-lg">Generate Tax Advice</button>
+                <div id="advice-output" class="p-4 my-3 rounded-lg text-sm bg-blue-100 text-blue-800 border-l-4 border-blue-500">Your tax advice will appear here after processing.</div>
+            </div>
+        </div>
+    </div>
+    
+<<<<<<< HEAD
+    <script src="https://unpkg.com/aws-amplify@4.3.20/dist/aws-amplify.min.js"></script>
+    
+    <script>
+        // Wait for the DOM and Amplify library to be fully loaded
+        function initializeApp() {
+            // Check if Amplify is loaded
+            if (typeof window.Amplify === 'undefined') {
+                console.error('AWS Amplify library failed to load. Please check your internet connection.');
+                document.getElementById('auth-status').innerHTML = 
+                    '<span style="color: red;">Error: AWS Amplify library failed to load. Please refresh the page.</span>';
+                return;
+            }
+
+            // --- AWS Amplify Configuration ---
+            const amplifyConfig = {
+                Auth: {
+                    region: 'eu-north-1',
+                    userPoolId: 'eu-north-1_KN87MPQJj',
+                    userPoolWebClientId: '6d2fenvrgt56xmz', // Fixed: removed extra characters
+                },
+                Storage: {
+                    AWSS3: {
+                        bucket: 'my-tax-documents-2025',
+                        region: 'eu-north-1',
+                    }
+                },
+                API: {
+                    endpoints: [
+                        {
+                            name: "TaxAdvisorAPI",
+                            endpoint: "https://wdchnry7n9.execute-api.eu-north-1.amazonaws.com/prod",
+                            region: "eu-north-1"
+                        }
+                    ]
+                }
+            };
+
+            try {
+                window.Amplify.configure(amplifyConfig);
+                console.log('AWS Amplify configured successfully');
+            } catch (error) {
+                console.error('Error configuring Amplify:', error);
+                document.getElementById('auth-status').innerHTML = 
+                    '<span style="color: red;">Error configuring AWS services. Please check the configuration.</span>';
+                return;
+            }
+
+            // --- UI Element References ---
+            const authSection = document.getElementById('auth-section');
+            const advisorSection = document.getElementById('advisor-section');
+            const authStatus = document.getElementById('auth-status');
+            const confirmSection = document.getElementById('confirm-section');
+            const uploadStatus = document.getElementById('upload-status');
+            const adviceOutput = document.getElementById('advice-output');
+
+            // --- Helper Function for Status Messages ---
+            function setStatusMessage(element, message, type = 'info') {
+                if (element) {
+                    element.innerText = message;
+                    element.className = `status-message ${type}`;
+                    element.classList.remove('hidden');
+                }
+            }
+
+            // --- Authentication Logic ---
+            document.getElementById('signup-btn').addEventListener('click', async () => {
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                
+                if (!email || !password) {
+                    setStatusMessage(authStatus, 'Please enter both email and password.', 'error');
+                    return;
+                }
+                
+                setStatusMessage(authStatus, 'Signing up...', 'info');
+                try {
+                    await window.Amplify.Auth.signUp({
+                        username: email,
+                        password: password,
+                        attributes: { email }
+                    });
+                    setStatusMessage(authStatus, 'Sign up successful! Please confirm your email.', 'success');
+                    confirmSection.classList.remove('hidden');
+                } catch (error) {
+                    setStatusMessage(authStatus, `Sign up error: ${error.message}`, 'error');
+                }
+            });
+
+            document.getElementById('confirm-btn').addEventListener('click', async () => {
+                const email = document.getElementById('email').value;
+                const code = document.getElementById('confirm-code').value;
+                
+                if (!code) {
+                    setStatusMessage(authStatus, 'Please enter the confirmation code.', 'error');
+                    return;
+                }
+                
+                setStatusMessage(authStatus, 'Confirming account...', 'info');
+                try {
+                    await window.Amplify.Auth.confirmSignUp(email, code);
+                    setStatusMessage(authStatus, 'Email confirmed! You can now log in.', 'success');
+                    confirmSection.classList.add('hidden');
+                } catch (error) {
+                    setStatusMessage(authStatus, `Confirmation error: ${error.message}`, 'error');
+                }
+            });
+            
+            document.getElementById('login-btn').addEventListener('click', async () => {
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                
+                if (!email || !password) {
+                    setStatusMessage(authStatus, 'Please enter both email and password.', 'error');
+                    return;
+                }
+                
+                setStatusMessage(authStatus, 'Logging in...', 'info');
+                try {
+                    await window.Amplify.Auth.signIn(email, password);
+                    setStatusMessage(authStatus, 'Logged in successfully!', 'success');
+                    authSection.classList.add('hidden');
+                    advisorSection.classList.remove('hidden');
+                } catch (error) {
+                    setStatusMessage(authStatus, `Log in error: ${error.message}`, 'error');
+                }
+            });
+
+            document.getElementById('logout-btn').addEventListener('click', async () => {
+                try {
+                    await window.Amplify.Auth.signOut();
+                    setStatusMessage(authStatus, 'Logged out successfully.', 'info');
+                    authSection.classList.remove('hidden');
+                    advisorSection.classList.add('hidden');
+                    // Clear any previous status/output
+                    uploadStatus.innerText = '';
+                    adviceOutput.innerText = 'Your tax advice will appear here after processing.';
+                    adviceOutput.className = 'status-message info';
+                } catch (error) {
+                    console.error('Error signing out: ', error);
+                    setStatusMessage(authStatus, `Logout error: ${error.message}`, 'error');
+                }
+            });
+
+            // --- File Upload Logic ---
+            document.getElementById('upload-btn').addEventListener('click', async () => {
+                const fileInput = document.getElementById('file-input');
+                const file = fileInput.files[0];
+                
+                if (!file) {
+                    setStatusMessage(uploadStatus, 'Please select a file to upload.', 'error');
+                    return;
+                }
+                
+                setStatusMessage(uploadStatus, `Uploading "${file.name}"... This may take a moment.`, 'info');
+                try {
+                    const result = await window.Amplify.Storage.put(file.name, file, {
+                        level: 'private',
+                        contentType: file.type
+                    });
+                    setStatusMessage(uploadStatus, `File "${file.name}" uploaded successfully!`, 'success');
+                    fileInput.value = ''; // Clear the file input
+                } catch (error) {
+                    setStatusMessage(uploadStatus, `Upload error: ${error.message}`, 'error');
+                }
+            });
+            
+            // --- Get Tax Advice Logic ---
+            document.getElementById('get-advice-btn').addEventListener('click', async () => {
+                setStatusMessage(adviceOutput, 'Generating tax advice... This might take a while as AI processes your data.', 'info');
+                
+                const apiName = 'TaxAdvisorAPI';
+                const path = '/advice';
+                
+                try {
+                    const currentUser = await window.Amplify.Auth.currentAuthenticatedUser();
+                    const userId = currentUser.username;
+
+                    const requestBody = {
+                        userId: userId
+                    };
+
+                    const response = await window.Amplify.API.post(apiName, path, {
+                        body: requestBody
+                    });
+                    
+                    if (response && response.tax_advice) {
+                        setStatusMessage(adviceOutput, response.tax_advice, 'success');
+                    } else {
+                        setStatusMessage(adviceOutput, 'Tax advice generated successfully!', 'success');
+                    }
+                } catch (error) {
+                    console.error('Error getting advice:', error);
+                    setStatusMessage(adviceOutput, `Error generating advice: ${error.message}. Please ensure documents are uploaded and try again.`, 'error');
+                }
+            });
+
+            // --- Initial Session Check ---
+            async function checkSession() {
+                try {
+                    await window.Amplify.Auth.currentSession();
+                    authSection.classList.add('hidden');
+                    advisorSection.classList.remove('hidden');
+                    setStatusMessage(authStatus, 'You are logged in.', 'success');
+                } catch (error) {
+                    authSection.classList.remove('hidden');
+                    advisorSection.classList.add('hidden');
+                    setStatusMessage(authStatus, 'Please sign up or log in to continue.', 'info');
+                }
+            }
+
+            // Run the session check
+            checkSession();
+        }
+
+        // Initialize the app when the page is fully loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeApp);
+        } else {
+            // DOM is already loaded, but wait a bit for Amplify to load
+            setTimeout(initializeApp, 100);
+        }
+    </script>
+=======
+    <!-- Load Tailwind CSS from CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- NEW: Load your bundled JavaScript file -->
+    <script src="bundle.js"></script>
+>>>>>>> 4562dbd (Completed Phase 2: Implemented Amplify v5 build process)
+</body>
+</html>
