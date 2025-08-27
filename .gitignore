@@ -27,3 +27,6 @@ amplify_outputs.json
 
 # macOS specific files
 .DS_Store
+
+package-lock.json
+
