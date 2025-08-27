@@ -19,6 +19,11 @@ yarn-error.log*
 
 # Amplify generated files
 amplify_outputs.json
+/.amplify
 
-# Access Key
+# Sensitive Credentials - VERY IMPORTANT
+# This will ignore your access keys file
 AgrimGusain_accessKeys.csv
+
+# macOS specific files
+.DS_Store
