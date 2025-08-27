@@ -37,7 +37,7 @@ To run this project on your local machine, follow these steps:
     ```
 
 3.  **Set up your backend sandbox:**
-    You will need to have your own AWS account configured. Run the Amplify sandbox to deploy a local version of the backend.
+    You will need to have your own AWS account configured. Run the Amplify sandbox  to deploy a local version of the backend.
     ```bash
     npx ampx sandbox
     ```
