@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tax Advisor</title>
+    <!-- Link to the external stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/aws-amplify@5.3.15/dist/aws-amplify.min.js"></script>
+</head>
+<body>
+    <div id="app-container">
+        <h1>AI Tax Advisor 💰</h1>
+        
+        <!-- Authentication Section -->
+        <div id="auth-section" class="section">
+            <h2>Sign Up / Log In</h2>
+            <input type="email" id="email" placeholder="Email">
+            <input type="password" id="password" placeholder="Password">
+            <div class="button-group">
+                <button id="signup-btn">Sign Up</button>
+                <button id="login-btn">Log In</button>
+            </div>
+            <div id="auth-status" class="status-message hidden"></div>
+            
+            <div id="confirm-section" class="hidden">
+                <p class="status-message info">Check your email for a confirmation code.</p>
+                <input type="text" id="confirm-code" placeholder="Confirmation Code">
+                <button id="confirm-btn" style="width: 100%;">Confirm Account</button>
+            </div>
+        </div>
+        
+        <!-- Advisor Section (Visible after login) -->
+        <div id="advisor-section" class="hidden section">
+            <h2>Welcome Back!</h2>
+            <p>You can upload documents or request new tax advice.</p>
+            
+            <hr>
+
+            <h3>Upload Your Tax Document 📁</h3>
+            <input type="file" id="file-input" accept=".pdf,.png,.jpg,.jpeg">
+            <button id="upload-btn" style="width: 100%;">Upload Document</button>
+            <div id="upload-status" class="status-message hidden"></div>
+            
+            <hr>
+
+            <h3>Get Your Tax Advice 💡</h3>
+            <button id="get-advice-btn" style="width: 100%;">Generate Tax Advice</button>
+            <div id="advice-output" class="status-message info">Your tax advice will appear here.</div>
+
+            <hr>
+            <button id="logout-btn">Log Out</button>
+        </div>
+    </div>
+    
+    <!-- AWS Amplify Library -->
+    <!-- Link to the external JavaScript file -->
+    <script src="script.js"></script>
+
+</body>
+</html>
