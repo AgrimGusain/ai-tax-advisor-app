@@ -23,7 +23,7 @@ amplify_outputs.json
 
 # Sensitive Credentials - VERY IMPORTANT
 # This will ignore any file ending in .csv
-AgrimGusain_accessKeys.csv.csv
+*.csv
 
 # macOS specific files
 .DS_Store

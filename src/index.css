@@ -1,52 +1,37 @@
-/* src/index.css */
-
+/* Global styles for the entire application */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f0f4f8; /* A light, neutral background */
 }
 
-.container {
+/* This class is used in App.jsx for the main container */
+.app-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f0f4f8;
 }
 
-.form-container {
+/* Styling for the container shown after a user logs in */
+.loggedIn-container {
   padding: 40px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
   background-color: white;
+  text-align: center;
   width: 400px;
-  box-sizing: border-box;
 }
 
-.title {
-  font-size: 24px;
+.user-email {
   font-weight: 600;
-  text-align: center;
-  margin-bottom: 10px;
   color: #1e293b;
-}
-
-.subtitle {
-  font-size: 16px;
-  text-align: center;
-  margin-bottom: 30px;
-  color: #64748b;
-}
-
-.input {
-  width: 100%;
-  padding: 12px 15px;
-  margin: 10px 0;
+  background-color: #f0f4f8;
+  padding: 10px;
   border-radius: 8px;
-  border: 1px solid #cbd5e1;
-  box-sizing: border-box;
-  font-size: 16px;
+  margin-bottom: 20px;
 }
 
 .button {
@@ -54,66 +39,15 @@ body {
   padding: 12px;
   border: none;
   border-radius: 8px;
-  background-color: #4f46e5;
+  background-color: #64748b;
   color: white;
   cursor: pointer;
   font-size: 16px;
   font-weight: 600;
-  margin-top: 10px;
+  margin-top: 20px;
   transition: background-color 0.2s;
 }
 
 .button:hover {
-    background-color: #4338ca;
-}
-
-.sign-out-button {
-    background-color: #64748b;
-}
-
-.sign-out-button:hover {
-    background-color: #475569;
-}
-
-.error {
-  color: #ef4444;
-  font-size: 14px;
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-.footer-text {
-  margin-top: 20px;
-  text-align: center;
-  color: #64748b;
-}
-
-.link {
-  color: #4f46e5;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.user-email {
-    text-align: center;
-    font-weight: 600;
-    color: #1e293b;
-    background-color: #f0f4f8;
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-}
-
-.loader {
-  border: 4px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 4px solid #4f46e5;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  background-color: #475569;
 }

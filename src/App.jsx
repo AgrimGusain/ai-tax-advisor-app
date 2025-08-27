@@ -1,18 +1,22 @@
-// src/App.jsx
-
 import React from 'react';
 import { Authenticator } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+import './App.css'; // You can add component-specific styles here if you wish
 
 function App() {
   return (
+    // The Authenticator component wraps your app and handles the entire login flow.
+    // It will show a login/signup form if the user is not authenticated.
     <Authenticator>
+      {/* This part of the code only renders when a user is successfully signed in. */}
+      {/* It automatically receives the `signOut` function and `user` object as props. */}
       {({ signOut, user }) => (
-        <main style={styles.container}>
-          <div style={styles.loggedInContainer}>
+        <main className="app-container">
+          <div className="loggedIn-container">
             <h1>Hello, {user.username}!</h1>
-            <p>Your email is: {user.attributes.email}</p>
-            <button style={styles.button} onClick={signOut}>
+            <p>You have successfully signed in.</p>
+            {/* ✅ FIX: Use optional chaining to safely access the email attribute */}
+            <p className="user-email">Your email is: {user?.attributes?.email}</p>
+            <button className="button" onClick={signOut}>
               Sign Out
             </button>
           </div>
@@ -21,36 +25,5 @@ function App() {
     </Authenticator>
   );
 }
-
-// Basic styling for the authenticated view
-const styles = {
-  container: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-    fontFamily: `sans-serif`,
-  },
-  loggedInContainer: {
-    padding: '40px',
-    boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
-    borderRadius: '12px',
-    backgroundColor: 'white',
-    textAlign: 'center',
-    width: '400px',
-  },
-  button: {
-    width: '100%',
-    padding: '12px',
-    border: 'none',
-    borderRadius: '8px',
-    backgroundColor: '#64748b',
-    color: 'white',
-    cursor: 'pointer',
-    fontSize: '16px',
-    fontWeight: '600',
-    marginTop: '20px',
-  },
-};
 
 export default App;
