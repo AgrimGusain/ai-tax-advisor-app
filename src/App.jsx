@@ -1,26 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Authenticator } from '@aws-amplify/ui-react';
-import './App.css'; // You can add component-specific styles here if you wish
+
+// Import the new components we will create
+import Navbar from './components/Navbar';
+import Dashboard from './components/Dashboard';
+import Upload from './components/Upload';
+import Advice from './components/Advice';
+import Profile from './components/Profile';
+
+// Import styles
+import './App.css';
 
 function App() {
+  // This state will control which page is currently visible
+  const [currentPage, setCurrentPage] = useState('dashboard');
+
+  const renderPage = (user) => {
+    switch (currentPage) {
+      case 'dashboard':
+        return <Dashboard user={user} />;
+      case 'upload':
+        return <Upload />;
+      case 'advice':
+        return <Advice />;
+      case 'profile':
+        return <Profile user={user} />;
+      default:
+        return <Dashboard user={user} />;
+    }
+  };
+
   return (
-    // The Authenticator component wraps your app and handles the entire login flow.
-    // It will show a login/signup form if the user is not authenticated.
     <Authenticator>
-      {/* This part of the code only renders when a user is successfully signed in. */}
-      {/* It automatically receives the `signOut` function and `user` object as props. */}
       {({ signOut, user }) => (
-        <main className="app-container">
-          <div className="loggedIn-container">
-            <h1>Hello, {user.username}!</h1>
-            <p>You have successfully signed in.</p>
-            {/* ✅ FIX: Use optional chaining to safely access the email attribute */}
-            <p className="user-email">Your email is: {user?.attributes?.email}</p>
-            <button className="button" onClick={signOut}>
-              Sign Out
-            </button>
-          </div>
-        </main>
+        <div className="app-layout">
+          <Navbar 
+            user={user} 
+            signOut={signOut} 
+            setCurrentPage={setCurrentPage} 
+          />
+          <main className="app-content">
+            {renderPage(user)}
+          </main>
+        </div>
       )}
     </Authenticator>
   );

@@ -1,2 +1,59 @@
-/* You can add styles specific to the App.jsx component here if needed. */
-/* For now, it can be left empty. */
+/* Main App Layout */
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.app-content {
+  flex-grow: 1;
+  padding: 2rem;
+  background-color: #f0f4f8;
+  overflow-y: auto;
+}
+
+/* Navbar Styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  height: 60px;
+  flex-shrink: 0;
+}
+
+.navbar-brand h3 {
+  margin: 0;
+  color: #4f46e5;
+}
+
+.navbar-links button {
+  background: none;
+  border: none;
+  padding: 1rem;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #333;
+  transition: color 0.2s;
+}
+
+.navbar-links button:hover {
+  color: #4f46e5;
+}
+
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.signout-button {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
