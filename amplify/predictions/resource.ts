@@ -1,13 +1,13 @@
-import { definePredictions } from '@aws-amplify/backend-cli/constructs';
+// amplify/predictions/resource.ts
+import { defineFunction } from '@aws-amplify/backend';
 
-export const predictions = definePredictions({
-  name: 'taxAdvisorPredictions',
-  identify: {
-    identifyText: {
-      defaults: {
-        format: 'PLAIN',
-      },
-    },
+// Simple text extraction function using AWS Textract
+export const predictions = defineFunction({
+  name: 'textExtraction',
+  entry: './textract-handler.ts',
+  environment: {
+    // Environment variables for Textract
   },
+  timeoutSeconds: 300,
+  memoryMB: 512,
 });
-

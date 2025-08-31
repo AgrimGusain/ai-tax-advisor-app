@@ -9,8 +9,6 @@ const schema = a.schema({
     userId: a.string().required(),
     // The actual text of the tax advice
     adviceText: a.string().required(),
-    // The owner field is automatically populated and used for authorization
-    owner: a.string(),
   })
   // This sets the authorization rules.
   // It allows the owner of a record (the logged-in user) to read their own advice.
