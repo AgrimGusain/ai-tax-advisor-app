@@ -1,13 +1,11 @@
-// amplify/functions/documentprocessor.ts
+// amplify/functions/document-processor.ts
 
 import { defineFunction } from '@aws-amplify/backend';
 
 export const documentProcessor = defineFunction({
-  name: 'documentProcessor',
+  name: 'document-processor',
   entry: './handler.ts',
-  environment: {
-    // Environment variables will be added by backend.ts
-  },
-  timeoutSeconds: 300, // 5 minutes timeout for document processing
-  memoryMB: 512, // Sufficient memory for document processing
+  runtime: 20,
+  timeoutSeconds: 300,
+  memoryMB: 1024
 });

@@ -1,26 +1,28 @@
 // amplify/backend.ts
 
 import { defineBackend } from '@aws-amplify/backend';
+import { PolicyStatement, Effect } from 'aws-cdk-lib/aws-iam';
+import { EventType } from 'aws-cdk-lib/aws-s3';
+import { LambdaDestination } from 'aws-cdk-lib/aws-s3-notifications';
 import { auth } from './auth/resource';
 import { storage } from './storage/resource';
 import { data } from './data/resource';
-import { documentProcessor } from './functions/document-processor';
+import { documentProcessor } from './functions/documentprocessor';
 
 const backend = defineBackend({
   auth,
   storage,
   data,
-  functions: {
-    documentProcessor,
-  },
+  documentProcessor,
 });
 
-// Grant the Lambda function access to the necessary resources
-backend.functions.documentProcessor.addEnvironment('ADVICE_TABLE_NAME', backend.data.resources.tables['Advice'].tableName);
+// Add environment variable for the DynamoDB table name
+backend.documentProcessor.addEnvironment('ADVICE_TABLE_NAME', backend.data.resources.tables['Advice'].tableName);
 
-backend.functions.documentProcessor.resources.lambda.addToRolePolicy(
-  new backend.functions.documentProcessor.resources.lambda.stack.aws_iam.PolicyStatement({
-    effect: backend.functions.documentProcessor.resources.lambda.stack.aws_iam.Effect.ALLOW,
+// Grant the Lambda function access to the necessary resources
+backend.documentProcessor.resources.lambda.addToRolePolicy(
+  new PolicyStatement({
+    effect: Effect.ALLOW,
     actions: [
       's3:GetObject',
       'dynamodb:PutItem',
@@ -34,14 +36,11 @@ backend.functions.documentProcessor.resources.lambda.addToRolePolicy(
   })
 );
 
-// Add S3 trigger for the document processor function
+// Set up S3 trigger for document processing
 backend.storage.resources.bucket.addEventNotification(
-  backend.storage.resources.bucket.stack.aws_s3.EventType.OBJECT_CREATED,
-  new backend.storage.resources.bucket.stack.aws_s3_notifications.LambdaDestination(
-    backend.functions.documentProcessor.resources.lambda
-  ),
+  EventType.OBJECT_CREATED,
+  new LambdaDestination(backend.documentProcessor.resources.lambda),
   {
     prefix: 'private/',
-    suffix: '.pdf'
   }
 );
