@@ -450,3 +450,25 @@ body::before {
   font-size: 0.9rem;
   margin-top: 0.5rem;
 }
+
+/* --- Authenticator Centering & Input Fixes --- */
+
+/* This rule correctly centers the login form in the middle of the screen. */
+[data-amplify-authenticator] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Add a visible border to the email and password input fields */
+[data-amplify-authenticator] .amplify-textfield .amplify-input {
+  /* The default theme might set the border to 'none'. We override it here. */
+  border: 1px solid #c9c9c9; /* A light gray for visibility */
+}
+
+/* Add a visual cue when an input field is focused for better UX */
+[data-amplify-authenticator] .amplify-textfield .amplify-input:focus {
+  border-color: #7c7fc8; /* Use a brand color from the app's theme */
+  box-shadow: 0 0 0 1px #7c7fc8;
+}

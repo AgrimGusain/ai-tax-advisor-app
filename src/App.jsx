@@ -29,9 +29,31 @@ function App() {
         return <Dashboard user={user} />;
     }
   };
+  
+  // Define the fields for the sign-up form
+  const formFields = {
+    signUp: {
+      username: {
+        placeholder: 'Enter your desired username',
+        order: 1,
+      },
+      email: {
+        placeholder: 'Enter your email address',
+        order: 2,
+      },
+      password: {
+        placeholder: 'Enter your password',
+        order: 3,
+      },
+      confirm_password: {
+        placeholder: 'Confirm your password',
+        order: 4,
+      },
+    },
+  };
 
   return (
-    <Authenticator>
+    <Authenticator formFields={formFields}>
       {({ signOut, user }) => (
         <div className="app-layout">
           <Navbar 

@@ -1,9 +1,35 @@
 import React from 'react';
 
 const Dashboard = ({ user }) => {
+  // Helper function to get the display name from user object
+  const getDisplayName = (user) => {
+    // Try to get the preferred username from attributes first
+    if (user?.attributes?.preferred_username) {
+      return user.attributes.preferred_username;
+    }
+    // Try other username-related attributes
+    if (user?.attributes?.['custom:username']) {
+      return user.attributes['custom:username'];
+    }
+    if (user?.attributes?.given_name) {
+      return user.attributes.given_name;
+    }
+    if (user?.attributes?.name) {
+      return user.attributes.name;
+    }
+    // If no username attributes are available, extract from loginId (email)
+    if (user?.signInDetails?.loginId) {
+      return user.signInDetails.loginId.split('@')[0];
+    }
+    // Fallback
+    return 'User';
+  };
+
+  const displayName = getDisplayName(user);
+
   return (
     <div className="page-container">
-      <h1>Welcome Back, {user.username}! 🚀</h1>
+      <h1>Welcome Back, {displayName}! 🚀</h1>
       
       {/* Stats Grid */}
       <div className="stats-grid">
@@ -85,9 +111,33 @@ const Dashboard = ({ user }) => {
           </div>
         </div>
       </div>
+
+      {/* Debug section - Remove this after testing
+      {process.env.NODE_ENV === 'development' && (
+        <div className="card" style={{ 
+          background: 'rgba(255, 107, 107, 0.1)', 
+          border: '1px solid rgba(255, 107, 107, 0.3)' 
+        }}>
+          <h2>🔧 Debug Info (Development Only)</h2>
+          <details>
+            <summary style={{ cursor: 'pointer', marginBottom: '1rem' }}>
+              Click to see user object structure
+            </summary>
+            <pre style={{ 
+              background: 'rgba(0,0,0,0.3)', 
+              padding: '1rem', 
+              borderRadius: '8px',
+              overflow: 'auto',
+              fontSize: '0.8rem',
+              color: '#ffffff'
+            }}>
+              {JSON.stringify(user, null, 2)}
+            </pre>
+          </details>
+        </div>
+      )} */}
     </div>
   );
 };
 
 export default Dashboard;
-
