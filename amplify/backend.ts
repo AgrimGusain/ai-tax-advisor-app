@@ -8,6 +8,12 @@ import { auth } from './auth/resource';
 import { storage } from './storage/resource';
 import { data } from './data/resource';
 import { documentProcessor } from './functions/documentprocessor';
+import { EC2Stack } from './custom/ec2-stack';
+import { IAMStack } from './custom/iam-stack';
+import { Stack } from 'aws-cdk-lib';
+
+
+const deployEC2AndIAMStacks = false;
 
 const backend = defineBackend({
   auth,
@@ -16,16 +22,21 @@ const backend = defineBackend({
   documentProcessor,
 });
 
-// Add environment variable for the DynamoDB table name
+if (deployEC2AndIAMStacks) {
+  new EC2Stack(backend.stack, 'EC2ApplicationStack');
+  new IAMStack(backend.stack, 'IAMResourcesStack');
+}
+
+// ✅ Add environment variable for the DynamoDB table name
 backend.documentProcessor.addEnvironment(
-  'ADVICE_TABLE_NAME', 
+  'ADVICE_TABLE_NAME',
   backend.data.resources.tables['Advice'].tableName
 );
 
-// Get the current AWS region from the backend
-const region = backend.data.resources.graphqlApi.env.region;
+// ✅ Use Amplify environment region instead of graphqlApi.env.region
+const region = Stack.of(backend.stack).region;
 
-// Grant the Lambda function access to the necessary resources
+// ✅ Grant the Lambda function access to S3 + DynamoDB
 backend.documentProcessor.resources.lambda.addToRolePolicy(
   new PolicyStatement({
     effect: Effect.ALLOW,
@@ -36,67 +47,41 @@ backend.documentProcessor.resources.lambda.addToRolePolicy(
       'dynamodb:UpdateItem',
       'dynamodb:DeleteItem',
       'dynamodb:Query',
-      'dynamodb:Scan'
+      'dynamodb:Scan',
     ],
     resources: [
-      backend.storage.resources.bucket.bucketArn + '/*',
+      `${backend.storage.resources.bucket.bucketArn}/*`,
       backend.data.resources.tables['Advice'].tableArn,
-      backend.data.resources.tables['Advice'].tableArn + '/index/*'
-    ]
+      `${backend.data.resources.tables['Advice'].tableArn}/index/*`,
+    ],
   })
 );
 
-// Grant Bedrock access with dynamic region
+// ✅ Grant Bedrock model invoke permissions (dynamic region + us-east-1 fallback)
 backend.documentProcessor.resources.lambda.addToRolePolicy(
   new PolicyStatement({
     effect: Effect.ALLOW,
-    actions: [
-      'bedrock:InvokeModel'
-    ],
+    actions: ['bedrock:InvokeModel'],
     resources: [
       `arn:aws:bedrock:${region}::foundation-model/anthropic.claude-3-sonnet-20240229-v1:0`,
-      `arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-3-sonnet-20240229-v1:0`
-    ]
+      `arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-3-sonnet-20240229-v1:0`,
+    ],
   })
 );
 
-// Add region environment variable to Lambda
+// ✅ Add region as environment variable for Lambda
 backend.documentProcessor.addEnvironment('AWS_REGION_CUSTOM', region);
 
-// Set up S3 trigger for document processing
-backend.storage.resources.bucket.addEventNotification(
-  EventType.OBJECT_CREATED,
-  new LambdaDestination(backend.documentProcessor.resources.lambda),
-  {
-    prefix: 'private/',
-    suffix: '.pdf'
-  }
-);
+// ✅ Setup S3 triggers for supported document types
+const docSuffixes = ['.pdf', '.doc', '.docx', '.txt'];
 
-// Also trigger on other common document formats
-backend.storage.resources.bucket.addEventNotification(
-  EventType.OBJECT_CREATED,
-  new LambdaDestination(backend.documentProcessor.resources.lambda),
-  {
-    prefix: 'private/',
-    suffix: '.doc'
-  }
-);
-
-backend.storage.resources.bucket.addEventNotification(
-  EventType.OBJECT_CREATED,
-  new LambdaDestination(backend.documentProcessor.resources.lambda),
-  {
-    prefix: 'private/',
-    suffix: '.docx'
-  }
-);
-
-backend.storage.resources.bucket.addEventNotification(
-  EventType.OBJECT_CREATED,
-  new LambdaDestination(backend.documentProcessor.resources.lambda),
-  {
-    prefix: 'private/',
-    suffix: '.txt'
-  }
-);
+for (const suffix of docSuffixes) {
+  backend.storage.resources.bucket.addEventNotification(
+    EventType.OBJECT_CREATED,
+    new LambdaDestination(backend.documentProcessor.resources.lambda),
+    {
+      prefix: 'private/',
+      suffix,
+    }
+  );
+}
