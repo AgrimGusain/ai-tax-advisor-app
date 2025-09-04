@@ -1,6 +1,6 @@
 // amplify/backend.ts
 
-import { defineBackend } from '@aws-amplify/backend';
+import { defineBackend, secret } from '@aws-amplify/backend';
 import { PolicyStatement, Effect } from 'aws-cdk-lib/aws-iam';
 import { EventType } from 'aws-cdk-lib/aws-s3';
 import { LambdaDestination } from 'aws-cdk-lib/aws-s3-notifications';
@@ -11,7 +11,6 @@ import { documentProcessor } from './functions/documentprocessor';
 import { EC2Stack } from './custom/ec2-stack';
 import { IAMStack } from './custom/iam-stack';
 import { Stack } from 'aws-cdk-lib';
-
 
 const deployEC2AndIAMStacks = false;
 
@@ -27,13 +26,17 @@ if (deployEC2AndIAMStacks) {
   new IAMStack(backend.stack, 'IAMResourcesStack');
 }
 
+// ✅ Use Amplify secret helper (NOT backend.secret)
+const PERPLEXITY_API_KEY = secret('PERPLEXITY_API_KEY');
+backend.documentProcessor.addEnvironment('PERPLEXITY_API_KEY', PERPLEXITY_API_KEY);
+
 // ✅ Add environment variable for the DynamoDB table name
 backend.documentProcessor.addEnvironment(
   'ADVICE_TABLE_NAME',
   backend.data.resources.tables['Advice'].tableName
 );
 
-// ✅ Use Amplify environment region instead of graphqlApi.env.region
+// ✅ Use Amplify environment region
 const region = Stack.of(backend.stack).region;
 
 // ✅ Grant the Lambda function access to S3 + DynamoDB
@@ -79,9 +82,6 @@ for (const suffix of docSuffixes) {
   backend.storage.resources.bucket.addEventNotification(
     EventType.OBJECT_CREATED,
     new LambdaDestination(backend.documentProcessor.resources.lambda),
-    {
-      prefix: 'private/',
-      suffix,
-    }
+    { prefix: 'private/', suffix }
   );
 }
